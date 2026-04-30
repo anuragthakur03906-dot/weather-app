@@ -43,7 +43,7 @@ const WeatherInfo = ({ data }) => {
    */
   const InfoItem = ({ icon: Icon, label, value, unit }) => (
     <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
-      <Icon sx={{ color: '#60A5FA', fontSize: { xs: 22, sm: 28 } }} />
+      <Icon sx={{ color: '#a78bfa', fontSize: { xs: 22, sm: 28 } }} />
       <div className="flex-1 min-w-0">
         <Typography variant="caption" className="text-gray-300 block text-xs sm:text-sm">
           {label}
@@ -60,7 +60,7 @@ const WeatherInfo = ({ data }) => {
       {/* Main Weather Display */}
       <div className="text-center mb-4 sm:mb-6">
         <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
-          <LocationOnIcon sx={{ color: '#60A5FA', fontSize: { xs: 20, sm: 24 } }} />
+          <LocationOnIcon sx={{ color: '#a78bfa', fontSize: { xs: 20, sm: 24 } }} />
           <Typography variant="h4" className="text-white font-bold text-xl sm:text-2xl md:text-3xl">
             {data.city}, {data.country}
           </Typography>
@@ -72,7 +72,7 @@ const WeatherInfo = ({ data }) => {
           </Typography>
           <div className="flex items-center justify-center gap-2 mt-2 flex-wrap">
             <span className="text-2xl sm:text-3xl">{getWeatherIcon(data.condition)}</span>
-            <Typography variant="h6" className="text-gray-200 text-base sm:text-lg">
+            <Typography variant="h6" className="text-gray-200 text-base sm:text-lg capitalize">
               {data.condition} - {data.description}
             </Typography>
           </div>
@@ -80,7 +80,7 @@ const WeatherInfo = ({ data }) => {
 
         <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
           <div className="flex items-center gap-1">
-            <ThermostatIcon sx={{ color: '#FBBF24', fontSize: { xs: 18, sm: 20 } }} />
+            <ThermostatIcon sx={{ color: '#fbbf24', fontSize: { xs: 18, sm: 20 } }} />
             <Typography className="text-gray-200 text-sm sm:text-base">
               Feels like {data.feelsLike}°C
             </Typography>
@@ -100,9 +100,9 @@ const WeatherInfo = ({ data }) => {
       </div>
 
       {/* Weather Tip - Dynamic based on temperature */}
-      <div className="mt-4 sm:mt-6 p-2 sm:p-3 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-center">
+      <div className="mt-4 sm:mt-6 p-2 sm:p-3 rounded-lg bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-center">
         <Typography variant="caption" className="text-gray-300 text-xs sm:text-sm">
-          💡 {data.temperature > 30 ? "🥵 It's very hot! Stay hydrated and avoid direct sunlight." :
+           {data.temperature > 30 ? "🥵 It's very hot! Stay hydrated and avoid direct sunlight." :
                data.temperature > 25 ? "🌞 It's warm outside! Stay hydrated." :
                data.temperature < 10 ? "🧥 It's cold! Don't forget your jacket." : 
                data.temperature < 0 ? "❄️ Freezing weather! Bundle up warmly." :

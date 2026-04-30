@@ -6,7 +6,6 @@ import WeatherInfo from './WeatherInfo';
 import CircularProgress from '@mui/material/CircularProgress';
 import WeatherLogo from './WeatherLogo';
 
-
 /**
  * WeatherCard Component - Main weather display component
  * @param {Function} onSearchComplete - Callback when search completes successfully
@@ -59,16 +58,17 @@ const WeatherCard = ({ onSearchComplete, searchTrigger }) => {
   };
 
   return (
-    <div className="glassmorphism p-4 sm:p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105">
+    <div className="p-4 sm:p-5 md:p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl">
       {/* Toast Notifications */}
       <Toaster
         position="top-right"
         toastOptions={{
           style: {
-            background: 'rgba(0, 0, 0, 0.8)',
+            background: '#1e1b4b',
             color: '#fff',
             backdropFilter: 'blur(10px)',
             borderRadius: '12px',
+            border: '1px solid rgba(139, 92, 246, 0.3)'
           },
           duration: 3000,
         }}
@@ -78,7 +78,7 @@ const WeatherCard = ({ onSearchComplete, searchTrigger }) => {
       <div className="text-center mb-4 sm:mb-6">
         <div className="flex items-center justify-center gap-3 mb-2">
           <WeatherLogo size="medium" animation="pulse" />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
             Weather App
           </h1>
         </div>
@@ -97,7 +97,7 @@ const WeatherCard = ({ onSearchComplete, searchTrigger }) => {
       {/* Loading State */}
       {loading && (
         <div className="flex justify-center items-center py-12">
-          <CircularProgress sx={{ color: 'white' }} />
+          <CircularProgress sx={{ color: '#a78bfa' }} />
         </div>
       )}
 
@@ -106,7 +106,7 @@ const WeatherCard = ({ onSearchComplete, searchTrigger }) => {
         <div className="text-center py-6 sm:py-8">
           <div className="text-red-400 bg-red-400/10 rounded-lg p-3 sm:p-4">
             <p className="font-semibold text-sm sm:text-base">⚠️ {error}</p>
-            <p className="text-xs sm:text-sm mt-2">Please try searching for another city</p>
+            <p className="text-xs sm:text-sm mt-2 text-gray-300">Please try searching for another city</p>
           </div>
         </div>
       )}

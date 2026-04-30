@@ -37,7 +37,7 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
       const response = await axios.get(`${API_URL}/weather/suggestions`, {
         params: { query: searchText }
       });
-      
+
       if (response.data.success && response.data.data) {
         setSuggestions(response.data.data);
         setShowSuggestions(true);
@@ -135,15 +135,15 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
         try {
           const { latitude, longitude } = position.coords;
           console.log(`Got location: ${latitude}, ${longitude}`);
-          
+
           const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-          
+
           // Direct weather fetch by coordinates
           const response = await fetch(
             `${API_URL}/weather/coordinates?lat=${latitude}&lon=${longitude}`
           );
           const data = await response.json();
-          
+
           if (data.success && data.data) {
             console.log(`Weather for your location: ${data.data.city}`);
             if (setWeatherData) {
@@ -164,7 +164,7 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
       (error) => {
         console.error('Geolocation error:', error);
         setLocationLoading(false);
-        
+
         let message = 'Unable to get your location. ';
         if (error.code === 1) {
           message += 'Please allow location access.';
@@ -194,16 +194,12 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
             onChange={(e) => {
               setCity(e.target.value);
               setShowSuggestions(true);
-              setSelectedIndex(-1);
             }}
-            onFocus={() => setShowSuggestions(true)}
-            onKeyDown={handleKeyDown}
-            disabled={loading || locationLoading}
             placeholder="Search city (e.g., London, Mumbai, New York)..."
-            className="w-full px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 border border-white/20 focus:border-blue-400 focus:outline-none transition-all disabled:opacity-50 text-sm sm:text-base"
-            style={{ paddingRight: '90px' }}
+            className="w-full px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 border border-white/20 focus:border-purple-400 focus:outline-none transition-all"
+            style={{ paddingRight: "90px" }}
           />
-          
+
           {/* Action Buttons Container */}
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
             {/* Location Button */}
@@ -211,25 +207,25 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
               type="button"
               onClick={handleUseCurrentLocation}
               disabled={loading || locationLoading}
-              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white disabled:opacity-50"
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-purple-300 disabled:opacity-50"
               title="Use my current location"
             >
               {locationLoading ? (
-                <CircularProgress size={20} sx={{ color: 'white' }} />
+                <CircularProgress size={20} sx={{ color: '#a78bfa' }} />
               ) : (
                 <LocationOnIcon sx={{ fontSize: { xs: 20, sm: 22 } }} />
               )}
             </button>
-            
+
             {/* Search Button */}
             <button
               type="submit"
               disabled={loading || !city.trim()}
-              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white disabled:opacity-50"
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-purple-300 disabled:opacity-50"
               title="Search city"
             >
               {suggestionsLoading ? (
-                <CircularProgress size={20} sx={{ color: 'white' }} />
+                <CircularProgress size={20} sx={{ color: '#a78bfa' }} />
               ) : (
                 <SearchIcon sx={{ fontSize: { xs: 20, sm: 22 } }} />
               )}
@@ -238,14 +234,14 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
         </div>
       </form>
 
-      {/* Suggestions Dropdown - Responsive */}
+      {/* Suggestions Dropdown - Themed */}
       {showSuggestions && suggestions.length > 0 && (
         <div
-          className="absolute z-10 w-full mt-1 max-h-60 sm:max-h-80 overflow-auto rounded-lg shadow-lg"
+          className="absolute z-10 w-full mt-1 max-h-60 overflow-auto rounded-lg shadow-lg"
           style={{
-            backgroundColor: 'rgba(32, 32, 43, 0.95)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
+            backgroundColor: 'rgba(30, 27, 75, 0.98)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(139, 92, 246, 0.3)'
           }}
         >
           {suggestions.map((suggestion, index) => (
@@ -253,18 +249,20 @@ const SearchBar = ({ onSearch, loading, setWeatherData }) => {
               key={`${suggestion.name}-${suggestion.country}-${index}`}
               onClick={() => handleSuggestionClick(suggestion)}
               className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 cursor-pointer transition-colors ${
-                selectedIndex === index ? 'bg-blue-500/30' : 'hover:bg-white/10'
+                selectedIndex === index
+                  ? 'bg-purple-600/40'
+                  : 'hover:bg-white/10'
               }`}
             >
-              <LocationCityIcon sx={{ color: '#60A5FA', fontSize: { xs: 18, sm: 20 } }} />
+              <LocationCityIcon sx={{ color: '#a78bfa', fontSize: { xs: 18, sm: 20 } }} />
               <div className="flex-1 min-w-0">
                 <div className="text-white font-medium text-sm sm:text-base truncate">
                   {suggestion.name}
                   {suggestion.state && (
-                    <span className="text-gray-300 ml-1 text-xs sm:text-sm">({suggestion.state})</span>
+                    <span className="text-purple-300 ml-1 text-xs sm:text-sm">({suggestion.state})</span>
                   )}
                 </div>
-                <div className="text-gray-400 text-xs sm:text-sm truncate">{suggestion.country}</div>
+                <div className="text-gray-300 text-xs sm:text-sm truncate">{suggestion.country}</div>
               </div>
             </div>
           ))}

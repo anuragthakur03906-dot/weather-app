@@ -306,13 +306,17 @@ const getCitySuggestions = async (req, res) => {
     const data = response.data;
     
     // Format suggestions for frontend
-    const suggestions = data.map(item => ({
-      name: item.name,           // City name
-      country: item.country,     // Country code
-      state: item.state || '',   // State/province (if available)
-      lat: item.lat,            // Latitude for potential future use
-      lon: item.lon             // Longitude for potential future use
-    }));
+  const suggestions = data
+  .filter(item => 
+    item.name.toLowerCase().includes(query.toLowerCase())
+  )
+  .map(item => ({
+    name: item.name,
+    country: item.country,
+    state: item.state || '',
+    lat: item.lat,
+    lon: item.lon
+  }));
     
     res.json({ success: true, data: suggestions });
   } catch (error) {
